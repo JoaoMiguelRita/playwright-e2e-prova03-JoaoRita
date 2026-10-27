@@ -14,7 +14,7 @@ test.describe('Validar compra de passagem aérea de Florianópolis para Tóquio'
 
   test.beforeEach(async ({ page }) => {
     latamPage = new LatamPage(page);
-    await page.goto(BASE_URL);
+    await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
     await latamPage.aceitarCookies();
   });
 
@@ -39,7 +39,7 @@ test.describe('Validar busca de hospedagem no site da LATAM', () => {
 
   test.beforeEach(async ({ page }) => {
     hotelPage = new HotelPage(page);
-    await page.goto(BASE_URL);
+    await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
     await hotelPage.aceitarCookies();
   });
 
@@ -68,7 +68,7 @@ test.describe('Cotação de Seguro de Viagem LATAM', () => {
 
   test.beforeEach(async ({ page }) => {
     seguroPage = new SeguroViagemPage(page);
-    await page.goto(BASE_URL);
+    await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
     await seguroPage.aceitarCookies();
   });
 
