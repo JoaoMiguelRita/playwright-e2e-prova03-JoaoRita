@@ -11,14 +11,28 @@ export default class HotelPage extends BasePage {
     this.hotelElements = new HotelElements(page);
   }
 
-  async aceitarCookies(): Promise<void> {
+  async aceitarCookiesEPopups(): Promise<void> {
+    // 1. Trata os Cookies
     try {
       const botaoCookies = this.hotelElements.getBotaoAceitarCookies();
       if (await botaoCookies.isVisible({ timeout: 5000 })) {
         await botaoCookies.click();
       }
-    } catch (error) {
+    } catch (e) {
       // Ignora se não aparecer
+    }
+
+    // 2. FECHA O POPUP DE SUGESTÃO DE PAÍS (Causa da falha no GitHub Actions)
+    try {
+      const modalPaisBtn = this.page.getByTestId('country-suggestion--dialog__close-button')
+        .or(this.page.locator('#country-suggestion--dialog__btn-confirm'))
+        .or(this.page.locator('[data-testid="country-suggestion--dialog"] button').first());
+
+      if (await modalPaisBtn.isVisible({ timeout: 5000 })) {
+        await modalPaisBtn.click({ force: true });
+      }
+    } catch (e) {
+      // Ignora se o modal não for exibido
     }
   }
 

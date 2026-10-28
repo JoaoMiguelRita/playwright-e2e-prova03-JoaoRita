@@ -7,6 +7,12 @@ export default class SeguroViagemElements extends BaseElements {
     this.page = page;
   }
 
+  getBotaoFecharModalPais(): Locator {
+    return this.page.getByTestId('country-suggestion--dialog__close-button')
+      .or(this.page.locator('#country-suggestion button[aria-label="Close"]'))
+      .or(this.page.locator('#country-suggestion--dialog__btn-confirm'));
+  }
+
   getBotaoAceitarCookies(): Locator {
     return this.page.getByTestId('cookies-politics-button--button');
   }
